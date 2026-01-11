@@ -2,8 +2,9 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FloatingBubbles from "../components/FloatingBubbles";
 import MusicPlayer from "../components/MusicPlayer";
+import TopNav from "../components/TopNav"; // Import TopNav
 import logo from "/logo.png";
-import { HeartIcon, BookOpenIcon } from "@heroicons/react/24/solid";
+import { HeartIcon, MusicalNoteIcon, FilmIcon, BookOpenIcon } from "@heroicons/react/24/solid";
 
 import { auth, db } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -18,7 +19,7 @@ import {
   doc,
 } from "firebase/firestore";
 
-/* 🎨 Mood Themes */
+/* /* 🎨 Mood Themes */
 const MOOD_THEMES = {
   happy: "from-yellow-100 via-pink-100 to-orange-200",
   sad: "from-blue-100 via-indigo-100 to-purple-200",
@@ -415,6 +416,10 @@ const RECOMMENDATIONS = {
 export default function Discover() {
   const { state } = useLocation();
   const mood = state?.mood || "happy";
+  
+  // State for Dark Mode to pass to TopNav
+  const [darkMode, setDarkMode] = useState(false);
+  
   const theme = MOOD_THEMES[mood];
   const data = RECOMMENDATIONS[mood];
 
@@ -458,7 +463,6 @@ export default function Discover() {
 
     try {
       const existingId = favoritesMap[item.title];
-
       if (existingId) {
         await deleteDoc(doc(db, "favorites", existingId));
       } else {
@@ -473,119 +477,107 @@ export default function Discover() {
       }
     } catch (err) {
       console.error("FIRESTORE ERROR:", err);
-      alert("Action failed. Check your database permissions.");
     }
   };
 
   return (
-    <div className={`relative min-h-screen bg-gradient-to-br ${theme} overflow-hidden`}>
+    <div className={`relative min-h-screen transition-colors duration-1000 overflow-x-hidden 
+      ${darkMode ? "bg-slate-900 text-white" : `bg-gradient-to-br ${theme}`}`}>
+      
+      {/* Subtle Background Logo */}
       <img
         src={logo}
         alt="bg"
-        className="absolute inset-0 w-full h-full object-contain opacity-10 blur-lg pointer-events-none"
+        className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-1000 
+        ${darkMode ? "opacity-5 blur-xl" : "opacity-10 blur-lg"}`}
       />
 
       <FloatingBubbles />
+      
+      {/* Top Navigation */}
+      <TopNav darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <div className="relative z-10 max-w-6xl mx-auto pt-24 px-6 pb-20">
-        <h1 className="text-3xl font-semibold text-center mb-12 capitalize">
-          Discover for your {mood} mood
-        </h1>
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-12">
+        <header className="text-center mb-16">
+          <h1 className="text-5xl font-extrabold mb-4 capitalize drop-shadow-sm">
+            Feeling {mood}?
+          </h1>
+          <p className={`text-lg ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+            We've curated these just for you to match your vibe. ✨
+          </p>
+        </header>
 
-        {/* 📚 Books Section */}
-        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-          <BookOpenIcon className="w-6 h-6 text-slate-700" /> Books
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6 mb-14">
-          {data.books.map((book, i) => {
-            const saved = !!favoritesMap[book.title];
-            return (
-              <div key={i} className="bg-white/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                <a
-                  href={book.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium block mb-3 text-slate-800 hover:text-blue-600 transition"
-                >
-                  {book.title}
-                </a>
-
-                <button
-                  onClick={() => toggleFavorite(book, "book")}
-                  className={`flex items-center gap-2 transition-all duration-300 ${
-                    saved ? "text-green-600 font-bold" : "text-pink-500 hover:scale-105"
-                  }`}
-                >
-                  <HeartIcon className={`w-5 h-5 ${saved ? "text-green-600" : "text-pink-400"}`} />
-                  {saved ? "Saved" : "Save"}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* 🎧 Songs Section */}
-        <h2 className="text-xl font-semibold mb-4">🎧 Songs</h2>
-        <div className="grid md:grid-cols-3 gap-6 mb-14">
-          {data.songs.map((song, i) => {
-            const saved = !!favoritesMap[song.title];
-            return (
-              <div key={i} className="bg-white/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                <a
-                  href={song.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium block mb-3 text-slate-800 hover:text-blue-600 transition"
-                >
-                  {song.title}
-                </a>
-
-                <button
-                  onClick={() => toggleFavorite(song, "song")}
-                  className={`flex items-center gap-2 transition-all duration-300 ${
-                    saved ? "text-green-600 font-bold" : "text-pink-500 hover:scale-105"
-                  }`}
-                >
-                  <HeartIcon className={`w-5 h-5 ${saved ? "text-green-600" : "text-pink-400"}`} />
-                  {saved ? "Saved" : "Save"}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* 🎬 Movies Section */}
-        <h2 className="text-xl font-semibold mb-4">🎬 Movies</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {data.movies.map((movie, i) => {
-            const saved = !!favoritesMap[movie.title];
-            return (
-              <div key={i} className="bg-white/80 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
-                <a
-                  href={movie.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium block mb-3 text-slate-800 hover:text-blue-600 transition"
-                >
-                  {movie.title}
-                </a>
-
-                <button
-                  onClick={() => toggleFavorite(movie, "movie")}
-                  className={`flex items-center gap-2 transition-all duration-300 ${
-                    saved ? "text-green-600 font-bold" : "text-pink-500 hover:scale-105"
-                  }`}
-                >
-                  <HeartIcon className={`w-5 h-5 ${saved ? "text-green-600" : "text-pink-400"}`} />
-                  {saved ? "Saved" : "Save"}
-                </button>
-              </div>
-            );
-          })}
+        {/* Recommendations Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Section 
+            title="Music" 
+            items={data.songs} 
+            type="song" 
+            icon={<MusicalNoteIcon className="w-6 h-6" />}
+            darkMode={darkMode}
+            toggleFavorite={toggleFavorite}
+            favoritesMap={favoritesMap}
+          />
+          <Section 
+            title="Movies" 
+            items={data.movies} 
+            type="movie" 
+            icon={<FilmIcon className="w-6 h-6" />}
+            darkMode={darkMode}
+            toggleFavorite={toggleFavorite}
+            favoritesMap={favoritesMap}
+          />
+          <Section 
+            title="Books" 
+            items={data.books} 
+            type="book" 
+            icon={<BookOpenIcon className="w-6 h-6" />}
+            darkMode={darkMode}
+            toggleFavorite={toggleFavorite}
+            favoritesMap={favoritesMap}
+          />
         </div>
       </div>
 
       <MusicPlayer />
+    </div>
+  );
+}
+
+/* Helper Component for Sections */
+function Section({ title, items, type, icon, darkMode, toggleFavorite, favoritesMap }) {
+  return (
+    <div className={`backdrop-blur-xl rounded-3xl p-6 shadow-2xl border transition-all duration-500
+      ${darkMode ? "bg-white/5 border-white/10" : "bg-white/40 border-white/60"}`}>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 bg-white/20 rounded-lg">{icon}</div>
+        <h2 className="text-2xl font-bold">{title}</h2>
+      </div>
+      
+      <div className="space-y-3">
+        {items.map((item, idx) => (
+          <div 
+            key={idx} 
+            className={`group flex items-center justify-between p-3 rounded-2xl transition-all
+              ${darkMode ? "hover:bg-white/10" : "hover:bg-white/60"}`}
+          >
+            <a 
+              href={item.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm font-medium flex-1 truncate mr-2"
+            >
+              {item.title}
+            </a>
+            <button 
+              onClick={() => toggleFavorite(item, type)}
+              className="p-2 rounded-full transition-transform active:scale-125"
+            >
+              <HeartIcon className={`w-6 h-6 ${favoritesMap[item.title] ? "text-red-500" : "text-gray-400 opacity-50 hover:opacity-100"}`} />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
