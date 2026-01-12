@@ -39,9 +39,9 @@ A distraction-free space for your thoughts. Notice the "lined paper" effect that
 ### 📈 Analytics & Trends
 Visualize patterns and track your consistency with our glassmorphism-style statistics dashboard.
 
-| Mood Distribution | Daily History |
+| Mood Distribution | Discover Page |
 | :---: | :---: |
-| ![Stats Dark](https://github.com/user-attachments/assets/f613d8d9-574c-40fb-a79e-5e2042644a11) | ![History Dark](https://github.com/user-attachments/assets/165b1d50-7b27-4ca6-976b-49c6cc6592e3) |
+| ![Stats Dark](https://github.com/user-attachments/assets/f613d8d9-574c-40fb-a79e-5e2042644a11) | ![History Dark](https://github.com/user-attachments/assets/60e645d0-bcee-44a4-8be3-b53ff65edaa5) |
 
 ---
 
