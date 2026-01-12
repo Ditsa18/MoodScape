@@ -83,4 +83,11 @@ npm install
 npm run dev
 
 ```
+---
+
+## 👤 Author
+
+**Made with ❤️ by Ditsa Bakshi** *Student*
+
+---
 
