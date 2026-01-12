@@ -27,27 +27,21 @@ Select from 13 different emotions. In Dark Mode, colors become deeper and more s
 
 | Light Mode | Dark Mode |
 | :---: | :---: |
-| ![Mood Light](<img width="1881" height="861" alt="Screenshot 2026-01-12 161831" src="https://github.com/user-attachments/assets/27256a87-19b2-4c6e-8adb-1046dece8702" />
-) | ![Mood Dark]<img width="1883" height="868" alt="Screenshot 2026-01-12 161855" src="https://github.com/user-attachments/assets/a5e72f58-6d8e-40eb-b1ad-dd324a92ef73" />
- |
+| ![Mood Light](https://github.com/user-attachments/assets/27256a87-19b2-4c6e-8adb-1046dece8702) | ![Mood Dark](https://github.com/user-attachments/assets/a5e72f58-6d8e-40eb-b1ad-dd324a92ef73) |
 
 ### 🖋️ The Midnight Journal
 A distraction-free space for your thoughts. Notice the "lined paper" effect that adjusts its visibility for eye comfort in Dark Mode.
 
 | Light Mode | Dark Mode |
 | :---: | :---: |
-| ![Journal Light]<img width="1892" height="863" alt="Screenshot 2026-01-12 161949" src="https://github.com/user-attachments/assets/ef476d4c-02bd-4e8f-baca-824657b01897" />
- | ![Journal Dark]<img width="1896" height="862" alt="Screenshot 2026-01-12 161936" src="https://github.com/user-attachments/assets/07222f5b-6bfb-4347-a1d2-10931adc1ea1" />
- |
+| ![Journal Light](https://github.com/user-attachments/assets/ef476d4c-02bd-4e8f-baca-824657b01897) | ![Journal Dark](https://github.com/user-attachments/assets/07222f5b-6bfb-4347-a1d2-10931adc1ea1) |
 
 ### 📈 Analytics & Trends
 Visualize patterns and track your consistency with our glassmorphism-style statistics dashboard.
 
 | Mood Distribution | Daily History |
 | :---: | :---: |
-| ![Stats Dark](  aq<img width="1216" height="1869" alt="moodscape-457e7 web app_stats" src="https://github.com/user-attachments/assets/f613d8d9-574c-40fb-a79e-5e2042644a11" />
-) | ![History Dark](<img width="1874" height="851" alt="Screenshot 2026-01-12 162514" src="https://github.com/user-attachments/assets/165b1d50-7b27-4ca6-976b-49c6cc6592e3" />
-|
+| ![Stats Dark](https://github.com/user-attachments/assets/f613d8d9-574c-40fb-a79e-5e2042644a11) | ![History Dark](https://github.com/user-attachments/assets/165b1d50-7b27-4ca6-976b-49c6cc6592e3) |
 
 ---
 
@@ -83,4 +77,3 @@ npm run dev
 
 ```
 
-```
