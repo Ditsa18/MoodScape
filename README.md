@@ -9,6 +9,13 @@
 
 ---
 
+## 🌐 Live Link
+Experience your personal aura here:
+
+https://moodscape-457e7.web.app
+
+---
+
 ## ✨ Features
 
 * **🌈 Aura-Driven UI:** The entire app background shifts its gradient dynamically based on your selected mood.
